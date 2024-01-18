@@ -9,6 +9,9 @@
         "php": ">=8.3.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^2.11",
+        "doctrine/doctrine-migrations-bundle": "^3.3",
+        "doctrine/orm": "^2.17",
         "runtime/frankenphp-symfony": "^0.2.0",
         "symfony/console": "7.0.*",
         "symfony/dotenv": "7.0.*",
@@ -66,5 +69,8 @@
             "require": "7.0.*",
             "docker": true
         }
+    },
+    "require-dev": {
+        "symfony/maker-bundle": "^1.52"
     }
 }
