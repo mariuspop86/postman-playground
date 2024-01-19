@@ -18,6 +18,7 @@ class ProductController extends AbstractController
     #[Route('/products', name: 'create_product', methods: ['POST'])]
     public function createProduct(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $data = $request->toArray();
         $product = new Product();
 
@@ -45,6 +46,7 @@ class ProductController extends AbstractController
     #[Route('/products/{id}', name: 'product_edit', requirements: ['page' => '\d+'], methods: ['PUT'])]
     public function update(Request $request, EntityManagerInterface $entityManager, int $id): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $product = $entityManager->getRepository(Product::class)->find($id);
 
         if (!$product) {
@@ -62,6 +64,7 @@ class ProductController extends AbstractController
     #[Route('/products/{id}', name: 'product_delete', requirements: ['page' => '\d+'], methods: ['DELETE'])]
     public function remove(EntityManagerInterface $entityManager, int $id): JsonResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $product = $entityManager->getRepository(Product::class)->find($id);
 
         if (!$product) {
