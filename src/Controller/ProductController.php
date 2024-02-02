@@ -92,7 +92,7 @@ class ProductController extends AbstractController
 
         $productDtos = [];
         foreach ($products as $product) {
-            $productDtos[] = $this->createProductDto($product);;
+            $productDtos[] = $this->createProductDto($product);
         }
 
         return new JsonResponse($productDtos);
