@@ -52,7 +52,21 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 			php bin/console doctrine:migrations:migrate --no-interaction
 		fi
 
-		if [ "$( find ./src/DataFixtures -iname '*.php' -print -quit )" ]; then
+        result=$(php bin/console doctrine:query:sql "SELECT id FROM public.user WHERE email='admin@admin.com';" --no-ansi)
+
+        # Remove leading/trailing whitespace
+        result="$(echo "$result" | tr -d '[:space:]')"
+
+        data=0
+        if echo "$result" | grep -q '\[OK\]' ; then
+            echo "Data does not exist in the database."
+            data=1
+        else
+            echo "Data exists in the database."
+            data=0
+        fi
+
+		if [ "$( find ./src/DataFixtures -iname '*.php' -print -quit )" ] && [ $data -eq 1 ]; then
 			php bin/console doctrine:fixtures:load --no-interaction
 		fi
 	fi
