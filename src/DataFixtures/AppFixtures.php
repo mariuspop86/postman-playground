@@ -37,6 +37,7 @@ class AppFixtures extends Fixture
          'admin'
         );
         $user->setPassword($hashedPassword);
+        $user->setAvatar('god.png');
 
         return $user;
     }
