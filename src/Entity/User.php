@@ -36,6 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Order::class)]
     private Collection $orders;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $avatar = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -140,4 +143,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): User
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'email' => $this->getEmail(),
+            'avatar' => '/uploads/avatars/'.$this->getAvatar(),
+        ];
+    }
+
 }
