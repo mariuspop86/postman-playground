@@ -65,7 +65,7 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
             echo "Data exists in the database."
             data=0
         fi
-
+		# If data is 0, load fixtures
 		if [ "$( find ./src/DataFixtures -iname '*.php' -print -quit )" ] && [ $data -eq 1 ]; then
 			php bin/console doctrine:fixtures:load --no-interaction
 		fi
