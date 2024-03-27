@@ -24,6 +24,10 @@ build: ## Builds the Docker images
 up: ## Start the docker hub in detached mode (no logs)
 	@$(DOCKER_COMP) up --detach
 
+up-debug: ## Start the docker hub in detached mode (no logs) with xDebug
+	@XDEBUG_MODE=debug $(DOCKER_COMP) up --detach
+
+
 start: build up ## Build and start the containers
 
 down: ## Stop the docker hub
